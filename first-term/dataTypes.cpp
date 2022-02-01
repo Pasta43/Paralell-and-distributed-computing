@@ -2,7 +2,7 @@
 * Date: 2022-02-01
 * Author: Santiago Pérez González
 * Course: Paralell and Distributed Computing
-* Topic: first application to measure the performance
+* Topic: application that shows the datatypes and its size
 */
 
 /*Interfaces are declared*/
