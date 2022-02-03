@@ -15,14 +15,37 @@
 
 #include <iostream>
 #include <vector>
+#include <random>
 
 using namespace std;
+
+
+/**
+* Function that multiplies two matrixes
+* @param Ma that is the A matrix
+* @param Mb that is the B matrix
+* @return The matrix product between Ma and Mb
+*/
+vector<vector<double>> multiMatrix(vector<vector<double>> Ma, vector<vector<double>> Mb){
+	vector<vector<double>> MResult(Ma.size(),vector<double>(Ma.size(),0));
+	for(int i=0;i<Ma.size();i++){
+		for(int j=0;j<Ma.size();j++){
+			for(int k=0;k<Ma.size();k++){
+				MResult[i][j]+=Ma[i][k]*Mb[k][j];
+			}
+		}
+	}
+	return MResult;
+}
+	
+
+
 /**
  * Function that prints in console a matrix
  * @param M that its the matrix will be printed
  */
 
-void printMatrix(vector<vector<int>> M){
+void printMatrix(vector<vector<double>> M){
 	for(int i=0;i<M.size();i++){
 		for(int j=0;j<M.size();j++){
 			cout<<M[i][j]<<" ";
@@ -33,6 +56,22 @@ void printMatrix(vector<vector<int>> M){
 }
 
 /**
+* Function that initialize with random numbers a matrix
+*/
+vector<vector<double>> initializeMatrix(vector<vector<double>> M){
+	vector<vector<double>> MInitialized (M.size(),vector<double>(M.size(),0));
+	float low_lim=0.001, high_lim=9.999;
+	random_device rd;
+	mt19937 gen(rd());
+	uniform_int_distribution<> dis(low_lim,high_lim);
+	for(int i=0;i<M.size();i++){
+		for(int j=0;j<M.size();j++){
+			MInitialized[i][j]=dis(gen);
+		}
+	}
+	return MInitialized;
+}
+/**
 * Main function
 * @param argc that is the number of arguments
 * @param argv that is a vector with the arguments
@@ -42,9 +81,11 @@ int main (int argc, char** argv){
 	int N=atoi(argv[1]);
 	/*It is used the vector class to create the matrixes*/
 	cout<< "Número ingresado: "<<N<<endl;
-	vector<vector<int>> M1(N,vector<int>(N,0));
-	vector<vector<int>> M2(N,vector<int>(N,0));
-	vector<vector<int>> MR(N,vector<int>(N,0));
+	vector<vector<double>> M1(N,vector<double>(N,0));
+	vector<vector<double>> M2(N,vector<double>(N,0));
+	vector<vector<double>> MR(N,vector<double>(N,0));
+	M1=initializeMatrix(M1);
+	M2=initializeMatrix(M2);
 	//Se imprime M1
 	cout<<"Se imprime M1"<<endl;
 	printMatrix(M1);
@@ -53,6 +94,7 @@ int main (int argc, char** argv){
 	cout<<"Se imprime M2"<<endl;
 	printMatrix(M2);
 	cout<<endl<<endl<<endl;
+	MR=multiMatrix(M1,M2);
 	//Se imprime MR
 	cout<<"Se imprime MR"<<endl;
 	cout<<endl<<endl<<endl;
