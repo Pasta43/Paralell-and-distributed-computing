@@ -16,7 +16,8 @@
 #include <iostream>
 #include <vector>
 #include <random>
-
+#include <ctime>
+#include <cstdlib>
 using namespace std;
 
 
@@ -37,8 +38,35 @@ vector<vector<double>> multiMatrix(vector<vector<double>> Ma, vector<vector<doub
 	}
 	return MResult;
 }
+/**
+ * @brief Function that generates a random value 
+ * 
+ * @param fMin that is the lower limit of the random value
+ * @param fMax that is the higher limit of the random value
+ * @return a double value between fMin and fMax 
+ */
+double randomNumber(double fMin, double fMax){
+    double f = (double)rand() / RAND_MAX;
+    return fMin + f * (fMax - fMin);
+}
+/**
+ * Function that generates a matrix with truly random values
+ * @param N that is the size of the matrix
+ * @return a matrix with random values
+ */
+vector<vector<double>> generateMatrix(int N){
+	vector<vector<double>> M(N,vector<double>(N,0));
+	double lower_bound=0.001, upper_bound=9.999;
+	//default_random_engine generator;
+	//uniform_real_distribution<double> distribution(lower_bound,upper_bound);
 	
-
+	for(int i=0;i<M.size();i++){
+		for(int j=0;j<M.size();j++){
+			M[i][j]=randomNumber(lower_bound,upper_bound);
+		}
+	}
+	return M;
+}
 
 /**
  * Function that prints in console a matrix
@@ -56,27 +84,12 @@ void printMatrix(vector<vector<double>> M){
 }
 
 /**
-* Function that initialize with random numbers a matrix
-*/
-vector<vector<double>> initializeMatrix(vector<vector<double>> M){
-	vector<vector<double>> MInitialized (M.size(),vector<double>(M.size(),0));
-	float low_lim=0.001, high_lim=9.999;
-	random_device rd;
-	mt19937 gen(rd());
-	uniform_int_distribution<> dis(low_lim,high_lim);
-	for(int i=0;i<M.size();i++){
-		for(int j=0;j<M.size();j++){
-			MInitialized[i][j]=dis(gen);
-		}
-	}
-	return MInitialized;
-}
-/**
 * Main function
 * @param argc that is the number of arguments
 * @param argv that is a vector with the arguments
 */
 int main (int argc, char** argv){
+	srand(time(NULL));
 	int i,j,k;
 	int N=atoi(argv[1]);
 	/*It is used the vector class to create the matrixes*/
@@ -84,8 +97,8 @@ int main (int argc, char** argv){
 	vector<vector<double>> M1(N,vector<double>(N,0));
 	vector<vector<double>> M2(N,vector<double>(N,0));
 	vector<vector<double>> MR(N,vector<double>(N,0));
-	M1=initializeMatrix(M1);
-	M2=initializeMatrix(M2);
+	M1=generateMatrix(N);
+	M2=generateMatrix(N);
 	//Se imprime M1
 	cout<<"Se imprime M1"<<endl;
 	printMatrix(M1);
