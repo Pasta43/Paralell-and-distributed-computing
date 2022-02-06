@@ -18,8 +18,14 @@ using namespace std;
 * @param n that is a number digited by the user
 *
 */
-void printNumbers(vector<int> numbers, int n){
-    cout<<"Los centros numéricos desde 1 hasta "<<n<< " son: ";
+void printNumbers(vector<int> numbers, int n,int counter){
+    if(counter==0){
+        cout <<"No hay centros numéricos entre 1 y "<<n;
+    }else if(counter ==1){
+        cout<<"El único centro numérico entre 1 y "<<n<< " es: ";    
+    }else{
+        cout<<"Los centros numéricos desde 1 hasta "<<n<< " son: ";
+    }
     for(int i =0;i<numbers.size();i++){
         if(numbers[i]!=0){
             cout<<numbers[i]<<" ";
@@ -63,5 +69,5 @@ int main(int argc,char **argv){
             j++;
         }
     }
-    printNumbers(list,n);
+    printNumbers(list,n,counter);
 }
