@@ -1,5 +1,5 @@
 /*
-* Date: 2022-02-05 - format: YYYY-mm-dd
+* Date: 2022-02-06 - format: YYYY-mm-dd
 * Author: Santiago Pérez González
 * Course: Paralell and Distributed Computing
 * Topic: Ninth point of the workshop 1. 
