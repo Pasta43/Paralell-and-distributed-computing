@@ -81,5 +81,8 @@ int main(int argc,char **argv){
             default:
                 cout<<"Opción inválida. Solo puede digitar números entre 1 y 5"<<endl;
         }
+        if (amount!=0){
+            cout<<"Importe="<<amount<<endl;
+        }
     }
 }
