@@ -15,10 +15,10 @@ using namespace std;
  * @param argc that is the number of arguments
  * @param argv that is the vector with the arguments
  */
-main(int argc, char** argv){
+int main(int argc, char** argv) {
     int n=0;
-    cout<<"Bienvenido"<<endl<<"Este es un programa que hace una secuencia de números en forma de pirámide"<<endl;
-    while(n<11){
+    cout<<"Bienvenido"<<endl<<"Este es un programa que hace una secuencia de números en forma de pirámide"<<endl<<"Tenga en cuenta que debe digitar valores entre 11 y 20"<<endl;
+    while(n<11 ||n>20){
         cout<<"Digite el número de filas de la pirámide: ";
         cin>>n;
         if(n<11 || n>20){
