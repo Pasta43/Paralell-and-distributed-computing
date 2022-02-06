@@ -14,6 +14,7 @@
 */
 #include <iostream>
 #include <vector>
+#include "presentation.cpp"
 using namespace std;
 /**
 * Function that get the user input for the kilometers 
@@ -35,6 +36,7 @@ double getAmountPerKm(){
 * @return the input data of the tons
 */
 double getAmountPerTon(){
+    presentation();
     double ton=0;
     while(ton<=0){
         cout<<"Inserte la cantidad de toneladas que llevó su camión: ";
