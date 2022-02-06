@@ -1,6 +1,6 @@
 /*
 * Date: 2022-02-04 - format: YYYY-mm-dd
-* Author: Santiago Pérez González
+* Author: Santiago P�rez Gonz�lez
 * Course: Paralell and Distributed Computing
 * Topic: Eighth point of the workshop 1. 
 * Program that calculates the tarot number
@@ -8,13 +8,13 @@
 * to execute: ./8out
 */
 
-#include<iostream>
+#include <iostream>
 #include <cmath>
 using namespace std;
 
 /**
 * Function that gets the number of digits of an integer number
-* @param number that is the number 
+* @param number that is the number to calculate its digits
 * @return the number of the digits of the param of this function
 */
 int count_digit(int number) {
