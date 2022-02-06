@@ -36,7 +36,6 @@ double getAmountPerKm(){
 * @return the input data of the tons
 */
 double getAmountPerTon(){
-    presentation();
     double ton=0;
     while(ton<=0){
         cout<<"Inserte la cantidad de toneladas que llevó su camión: ";
@@ -54,6 +53,7 @@ double getAmountPerTon(){
  * @param argv that is the vector with the arguments
  */
 int main(int argc,char **argv){
+    presentation();
     cout<<"Bienvenido"<<endl<<
     "Este es un programa que calcula el importe a pagar por ciruclar en una autopista"<<endl;
     while(true){
