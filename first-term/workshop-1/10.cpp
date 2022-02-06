@@ -10,6 +10,7 @@
 
 #include<iostream>
 #include <vector>
+#define MAX_SIZE 50
 using namespace std;
 /**
 * Function that prints the numbers of a vector
@@ -20,7 +21,11 @@ using namespace std;
 void printNumbers(vector<int> numbers, int n){
     cout<<"Los centros numéricos desde 1 hasta "<<n<< " son: ";
     for(int i =0;i<numbers.size();i++){
-        cout<<numbers[i]<<" ";
+        if(numbers[i]!=0){
+            cout<<numbers[i]<<" ";
+        }else{
+            break;
+        }
     }
     cout<<endl;
 }
@@ -33,9 +38,9 @@ void printNumbers(vector<int> numbers, int n){
 int main(int argc,char **argv){
     int n=0; //Number to know until where it is needed to calculate the numberic centers
     int counter=0; //counter of numeric centers
-    cout<<"Bienvenido"<<endl<<"Este es un programa que encuentra centros numéricos"<<endl<<"Digite un valor para calcular todos los centros numéricos desde 1 hasta ese número";
+    cout<<"Bienvenido"<<endl<<"Este es un programa que encuentra centros numéricos"<<endl<<"Digite un valor para calcular todos los centros numéricos desde 1 hasta ese número: ";
     cin>>n;
-    vector<int> list=vector<int> M(N,0);
+    vector<int> list(MAX_SIZE,0);
     
     for(int i=1;i<=n;i++){
         //Preview sum
@@ -58,5 +63,5 @@ int main(int argc,char **argv){
             j++;
         }
     }
-    printNumbers(list);
+    printNumbers(list,n);
 }
