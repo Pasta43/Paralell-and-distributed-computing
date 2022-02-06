@@ -21,7 +21,8 @@ int count_digit(int number) {
    return int(log10(number) + 1);
 }
 /**
-* Function that calculates the Tarot number
+* Function that calculates the Tarot number. It tooks first the sum of the day, month and year and
+* then the sum of the digits of the sum reducing it to one digit
 * @param day that is the day of birth
 * @param month that is the month of birth
 * @param year that is the year of birth
@@ -51,7 +52,14 @@ int calculateTarotNumber(int day,int month,int year){
 int main(int argc,char** argv){
 	int day,month,year;
 	cout<<"Bienvenido"<<endl<<"Este es un programa que calcula su número del Tarot"<<endl;
-	cout<<"Digite de la forma 'día' 'mes' 'año' (sin comillas, solamente números enteros). Por ejemplo: 22 02 2002."<<endl<<"Escriba su fecha de nacimiento: ";
-	cin>>day>>month>>year;
+	while(true){
+		cout<<"Digite de la forma 'día' 'mes' 'año' (sin comillas, solamente números enteros). Por ejemplo: 22 02 2002."<<endl<<"Escriba su fecha de nacimiento: ";
+		cin>>day>>month>>year;
+		if(day<1 || day>31 || month<1 || month>12 || year<1900 || year>2022){
+			cout<<"La fecha introducida no es válida"<<endl;
+		}else{
+			break;
+		}
+	}
 	cout<<"Su número de Tarot es: "<<calculateTarotNumber(day,month,year)<<endl;
 }
