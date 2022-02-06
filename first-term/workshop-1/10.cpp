@@ -62,6 +62,7 @@ int main(int argc,char **argv){
             afterSum+=j;
             if(afterSum==previewSum){ //If the sums are equals, it means that is a numeric center
                 list[counter]=i;
+                counter++;
                 break;
             }else if(afterSum>previewSum){ //If the after sum is greater than preview, it means that this number is not a numeric center (or could be lower, but it could )
                 break;
