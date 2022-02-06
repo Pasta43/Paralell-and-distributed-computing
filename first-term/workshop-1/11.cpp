@@ -21,7 +21,7 @@ using namespace std;
 */
 double getAmountPerKm(){
     double km=0;
-    while(km<0){
+    while(km<=0){
         cout<<"Inserte la cantidad de kilómetros recorridos: ";
         cin>>km;
         if (km<0){
@@ -36,7 +36,7 @@ double getAmountPerKm(){
 */
 double getAmountPerTon(){
     double ton=0;
-    while(ton<0){
+    while(ton<=0){
         cout<<"Inserte la cantidad de toneladas que llevó su camión: ";
         cin>>ton;
         if (ton<0){
