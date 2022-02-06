@@ -23,7 +23,7 @@ double getAmountPerKm(){
     double km=0;
     while(km<0){
         cout<<"Inserte la cantidad de kilómetros recorridos: ";
-        cin>>km
+        cin>>km;
         if (km<0){
             cout<<"El número de kilómetros ingresado debe ser un número positivo"<<endl;
         }
