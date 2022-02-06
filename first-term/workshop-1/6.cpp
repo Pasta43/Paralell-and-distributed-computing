@@ -57,9 +57,9 @@
 		}
 		if(number1<number2){
 			sum=calculateSum(number1,number2);
-			cout<<"\nLa suma de múltiplos de 5 entre "<<number1<<" y "<<number2<<" es "<<sum;
+			cout<<"\nLa suma de múltiplos de 5 entre "<<number1<<" y "<<number2<<" es "<<sum<<endl;
 		}else{
 			sum=calculateSum(number2,number1);
-			cout<<"\nLa suma de múltiplos de 5 entre "<<number2<<" y "<<number1<<" es "<<sum;
+			cout<<"\nLa suma de múltiplos de 5 entre "<<number2<<" y "<<number1<<" es "<<sum<<endl;
 		}
 	}
