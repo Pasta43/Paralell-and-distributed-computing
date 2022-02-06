@@ -1,5 +1,10 @@
 #include <stdio.h>  
-
+#define RED     "\x1b[31m"
+#define CYAN    "\x1b[36m"
+#define YELLOW  "\x1b[33m"
+#define GREEN   "\x1b[32m"
+#define WHITE	"\x1b[39m"
+#define BLUE	"\x1b[34m"
 void gotoxy(int x,int y){
 	printf("%c[%d;%df",0x1B,y,x);
 }
