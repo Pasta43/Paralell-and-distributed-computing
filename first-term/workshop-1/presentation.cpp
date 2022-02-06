@@ -10,6 +10,7 @@ void gotoxy(int x,int y){
 }
 
 void presentation(){
+    system("clear");
 	int x,y;
  	//Vertical bar
  	for(y=1;y<=7;y++)
