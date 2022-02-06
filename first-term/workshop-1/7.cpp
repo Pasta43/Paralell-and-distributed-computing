@@ -25,6 +25,11 @@ double calculateSum(int b,double x,double y){
 	}
 	return sum;
 }
+/**
+* Main function
+* @param argc that is the number of arguments
+* @param argv that is a vector with the arguments
+*/
 
 int main(int argv,char** argc){
 	presentation();
