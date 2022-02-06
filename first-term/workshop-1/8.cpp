@@ -1,6 +1,6 @@
 /*
 * Date: 2022-02-04 - format: YYYY-mm-dd
-* Author: Santiago P�rez Gonz�lez
+* Author: Santiago Pérez González
 * Course: Paralell and Distributed Computing
 * Topic: Eighth point of the workshop 1. 
 * Program that calculates the tarot number
