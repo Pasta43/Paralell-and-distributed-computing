@@ -4,8 +4,8 @@
 	* Course: Paralell and Distributed Computing
 	* Topic: Sixth point of the workshop 1. 
 	* Program that calculates the sum of the multiples of five since a number 'a' until another 'b' considering a>=b
-	* to compile: to compile: g++ -g 7.cpp -o 7out
-	* to execute: ./7out
+	* to compile: to compile: g++ -g 6.cpp -o 6out
+	* to execute: ./6out
 	*/
 
 
