@@ -44,10 +44,15 @@ void printNumbers(vector<int> numbers, int n,int counter){
 int main(int argc,char **argv){
     int n=0; //Number to know until where it is needed to calculate the numberic centers
     int counter=0; //counter of numeric centers
-    cout<<"Bienvenido"<<endl<<"Este es un programa que encuentra centros numéricos"<<endl<<"Digite un valor para calcular todos los centros numéricos desde 1 hasta ese número: ";
-    cin>>n;
     vector<int> list(MAX_SIZE,0);
-    
+    cout<<"Bienvenido"<<endl<<"Este es un programa que encuentra centros numéricos"<<endl;
+    while(n<=0){
+        cout<<"Digite un valor para calcular todos los centros numéricos desde 1 hasta ese número: ";
+        cin>>n;
+        if(n<=0){
+            cout<<"El valor debe ser un número positivo"<<endl;;
+        }
+    }
     for(int i=1;i<=n;i++){
         //Preview sum
         long previewSum=0;
