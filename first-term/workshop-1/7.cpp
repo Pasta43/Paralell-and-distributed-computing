@@ -9,6 +9,7 @@
 */
 
 #include<iostream>
+#include "presentation.cpp"
 using namespace std;
 /**
 * Function that calculates the sum of \sum_{a=0}^{b}{\frac{1}{x+ay}}
@@ -26,6 +27,7 @@ double calculateSum(int b,double x,double y){
 }
 
 int main(int argv,char** argc){
+	presentation();
 	int b;
 	double x=0,y=0,sum=0;
 	cout<<"Bienvenido"<<endl<<"Este es un programa que calcula la sumatoria sum_{a=0}^{b}{frac{1}{x+ay}}"<<endl;

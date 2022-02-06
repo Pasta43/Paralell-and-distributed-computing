@@ -10,6 +10,7 @@
 
 #include<iostream>
 #include <vector>
+#include "presentation.cpp"
 #define MAX_SIZE 50
 using namespace std;
 /**
@@ -42,6 +43,7 @@ void printNumbers(vector<int> numbers, int n,int counter){
  * @param argv that is the vector with the arguments
  */
 int main(int argc,char **argv){
+    presentation();
     int n=0; //Number to know until where it is needed to calculate the numberic centers
     int counter=0; //counter of numeric centers
     vector<int> list(MAX_SIZE,0);

@@ -1,6 +1,6 @@
 /*
 * Date: 2022-01-31
-* Author: Santiago Pérez González
+* Author: Santiago Pï¿½rez Gonzï¿½lez
 * Course: Paralell and Distributed Computing
 * Topic: Sixth point of the workshop 1. 
 * Program that calculates the sum of the multiples of five since a number 'a' until another 'b' considering a>=b
@@ -8,6 +8,7 @@
 
 
 #include <stdio.h>
+#include "presentation.cpp"
 /**
 Function that calculates the sum of the multiples of five since a number a until another b
 @param a that is the lower bound of the sum
@@ -31,8 +32,9 @@ int calculateSum(int a,int b){
  to the calculateSum function and finally prints the result in the screen
 */
 main(){
+	presentation();
 	int number1=-1,number2=-1,sum=0;
-	printf("Calculadora de suma de múltiplos de 5 desde un número 'a' hasta un número 'b'\n");
+	printf("Calculadora de suma de mï¿½ltiplos de 5 desde un nï¿½mero 'a' hasta un nï¿½mero 'b'\n");
 	while(number1<0){
 		printf("Digite un valor entero 1: ");
 		scanf("%d", &number1);	

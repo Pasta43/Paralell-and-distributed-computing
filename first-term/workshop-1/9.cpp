@@ -8,6 +8,7 @@
 * to execute: ./9out
 */
 #include<iostream>
+#include "presentation.cpp"
 using namespace std;
 /**
  * Main function
@@ -16,6 +17,7 @@ using namespace std;
  * @param argv that is the vector with the arguments
  */
 int main(int argc, char** argv) {
+    presentation();
     int n=0;
     cout<<"Bienvenido"<<endl<<"Este es un programa que hace una secuencia de números en forma de pirámide"<<endl<<"Tenga en cuenta que debe digitar valores entre 11 y 20"<<endl;
     while(n<11 ||n>20){

@@ -10,6 +10,7 @@
 
 #include <iostream>
 #include <cmath>
+#include "presentation.cpp"
 using namespace std;
 
 /**
@@ -50,6 +51,7 @@ int calculateTarotNumber(int day,int month,int year){
 * @param argv that is a vector with the arguments
 */
 int main(int argc,char** argv){
+	presentation();
 	int day,month,year;
 	cout<<"Bienvenido"<<endl<<"Este es un programa que calcula su número del Tarot"<<endl;
 	while(true){
