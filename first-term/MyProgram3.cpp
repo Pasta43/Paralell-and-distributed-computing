@@ -18,6 +18,7 @@
 #include <random>
 #include <ctime>
 #include <cstdlib>
+#include <chrono>
 using namespace std;
 
 
@@ -29,6 +30,8 @@ using namespace std;
 */
 vector<vector<double>> multiMatrix(vector<vector<double>> Ma, vector<vector<double>> Mb){
 	vector<vector<double>> MResult(Ma.size(),vector<double>(Ma.size(),0));
+    //Make apeak of test to take initial time 	
+    auto startTime=chrono::high_resolution_clock::now();
 	for(int i=0;i<Ma.size();i++){
 		for(int j=0;j<Ma.size();j++){
 			for(int k=0;k<Ma.size();k++){
@@ -36,6 +39,11 @@ vector<vector<double>> multiMatrix(vector<vector<double>> Ma, vector<vector<doub
 			}
 		}
 	}
+    //Make apeak of test to take initial time 	
+    auto endTime=chrono::high_resolution_clock::now();
+	chrono::duration<double,milli> totalTime=endTime-startTime;
+    cout<<"\nTiempo: "<<totalTime.count()<<" ms"<<endl;
+	
 	return MResult;
 }
 /**
@@ -59,13 +67,12 @@ vector<vector<double>> generateMatrix(int N){
 	double lower_bound=0.001, upper_bound=9.999;
 	//default_random_engine generator;
 	//uniform_real_distribution<double> distribution(lower_bound,upper_bound);
-	
 	for(int i=0;i<M.size();i++){
 		for(int j=0;j<M.size();j++){
 			M[i][j]=randomNumber(lower_bound,upper_bound);
 		}
 	}
-	return M;
+    return M;
 }
 
 /**
@@ -93,25 +100,25 @@ int main (int argc, char** argv){
 	int i,j,k;
 	int N=atoi(argv[1]);
 	/*It is used the vector class to create the matrixes*/
-	cout<< "Número ingresado: "<<N<<endl;
+	//cout<< "Número ingresado: "<<N<<endl;
 	vector<vector<double>> M1(N,vector<double>(N,0));
 	vector<vector<double>> M2(N,vector<double>(N,0));
 	vector<vector<double>> MR(N,vector<double>(N,0));
 	M1=generateMatrix(N);
 	M2=generateMatrix(N);
-	//Se imprime M1
+	/*//Se imprime M1
 	cout<<"Se imprime M1"<<endl;
 	printMatrix(M1);
 	cout<<endl<<endl<<endl;
 	//Se imprime M2
 	cout<<"Se imprime M2"<<endl;
 	printMatrix(M2);
-	cout<<endl<<endl<<endl;
+	cout<<endl<<endl<<endl;*/
 	MR=multiMatrix(M1,M2);
-	//Se imprime MR
+	/*//Se imprime MR
 	cout<<"Se imprime MR"<<endl;
 	cout<<endl<<endl<<endl;
-	printMatrix(MR);
+	printMatrix(MR);*/
 	
 		
 }
