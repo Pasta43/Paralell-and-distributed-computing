@@ -19,19 +19,46 @@
 #include <ctime>
 #include <cstdlib>
 #include <chrono>
+#include <unistd.h>
+#include <math.h>
+#include <cstring>
 using namespace std;
 
+struct timespec start,endCount;
 
+/*Inicio: medida de tiempo*/
+void sampleStart(){
+	clock_gettime(CLOCK_MONOTONIC,&start);
+}
+
+/*Fin: medida de tiempo*/
+void sampleEnd(){
+	clock_gettime(CLOCK_MONOTONIC,&endCount);
+	/*Se imprime el tiempo*/
+	double totalTime;
+	totalTime=(endCount.tv_sec-start.tv_sec)*1e9;
+	totalTime=(totalTime+endCount.tv_nsec-start.tv_nsec)*1e-9;
+	printf("%f\n",totalTime);
+}
+
+/*More randomly*/
+float randMM(){
+	float min=0.001,max=9.999;
+	static int first=-1;
+	if((first=(first<0)))
+		srand(time(NULL)+getpid());
+	if(min>max)
+		return errno=EDOM,NAN;
+	return min +(float)rand()/((float)RAND_MAX/(max-min)); 
+}
 /**
 * Function that multiplies two matrixes
 * @param Ma that is the A matrix
 * @param Mb that is the B matrix
 * @return The matrix product between Ma and Mb
 */
-vector<vector<double>> multiMatrix(vector<vector<double>> Ma, vector<vector<double>> Mb){
+void multiMatrix(vector<vector<double>> Ma, vector<vector<double>> Mb){
 	vector<vector<double>> MResult(Ma.size(),vector<double>(Ma.size(),0));
-    //Make apeak of test to take initial time 	
-    auto startTime=chrono::high_resolution_clock::now();
 	for(int i=0;i<Ma.size();i++){
 		for(int j=0;j<Ma.size();j++){
 			for(int k=0;k<Ma.size();k++){
@@ -39,12 +66,6 @@ vector<vector<double>> multiMatrix(vector<vector<double>> Ma, vector<vector<doub
 			}
 		}
 	}
-    //Make apeak of test to take initial time 	
-    auto endTime=chrono::high_resolution_clock::now();
-	chrono::duration<double,milli> totalTime=endTime-startTime;
-    cout<<"\nTiempo: "<<totalTime.count()<<" ms"<<endl;
-	
-	return MResult;
 }
 /**
  * @brief Function that generates a random value 
@@ -64,12 +85,10 @@ double randomNumber(double fMin, double fMax){
  */
 vector<vector<double>> generateMatrix(int N){
 	vector<vector<double>> M(N,vector<double>(N,0));
-	double lower_bound=0.001, upper_bound=9.999;
-	//default_random_engine generator;
-	//uniform_real_distribution<double> distribution(lower_bound,upper_bound);
-	for(int i=0;i<M.size();i++){
-		for(int j=0;j<M.size();j++){
-			M[i][j]=randomNumber(lower_bound,upper_bound);
+
+	for(int i=0;i<N;i++){
+		for(int j=0;j<N;j++){
+			M[i][j]=randMM();
 		}
 	}
     return M;
@@ -106,19 +125,8 @@ int main (int argc, char** argv){
 	vector<vector<double>> MR(N,vector<double>(N,0));
 	M1=generateMatrix(N);
 	M2=generateMatrix(N);
-	/*//Se imprime M1
-	cout<<"Se imprime M1"<<endl;
-	printMatrix(M1);
-	cout<<endl<<endl<<endl;
-	//Se imprime M2
-	cout<<"Se imprime M2"<<endl;
-	printMatrix(M2);
-	cout<<endl<<endl<<endl;*/
-	MR=multiMatrix(M1,M2);
-	/*//Se imprime MR
-	cout<<"Se imprime MR"<<endl;
-	cout<<endl<<endl<<endl;
-	printMatrix(MR);*/
+	multiMatrix(M1,M2);
 	
 		
 }
+

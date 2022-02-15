@@ -10,8 +10,41 @@
 */
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
+#include <unistd.h>
+#include <math.h>
+#include <sys/time.h>
+#include <errno.h>
+
+struct timespec start,endCount;
+/*Inicio: medida de tiempo*/
+void sampleStart(){
+    clock_gettime(CLOCK_MONOTONIC,&start);
+}
+
+/*Fin: medida de tiempo*/
+void sampleEnd(){
+    clock_gettime(CLOCK_MONOTONIC,&endCount);
+    /*Se imprime el tiempo*/
+    double totalTime;
+    totalTime=(endCount.tv_sec-start.tv_sec)*1e9;
+    totalTime=(totalTime+endCount.tv_nsec-start.tv_nsec)*1e-9;
+    printf("%f\n",totalTime);
+}
+
+/*More randomly*/
+float randMM(){
+    float min=0.001,max=9.999;
+    static int first=-1;
+    if((first=(first<0)))
+        srand(time(NULL)+getpid());
+    if(min>max)
+        return errno=EDOM,NAN;
+    return min +(float)rand()/((float)RAND_MAX/(max-min)); 
+}
 
 //Variable with high value to reserve memory
+
 #define DATA_SZ (1024*1024*64*3)
 
 //Its reserved the memory space taking into account DATA_SZ
@@ -22,8 +55,8 @@ void initializeMatrix(int SZ,double *Ma,double *Mb, double *Mr){
     int i,j,k;
     for(i=0;i<SZ;++i){
         for(j=0;j<SZ;++j){
-            Ma[j+i*SZ]=3.0*(i-j);
-            Mb[j+i*SZ]=2.8*(i+j);
+            Ma[j+i*SZ]=randMM();
+            Mb[j+i*SZ]=randMM();
             Mr[j+i*SZ]=0.0;
         }
     }
@@ -40,6 +73,23 @@ void printMatrix(int SZ,double *Ma){
     }
 }
 
+void MatrixMM(int size, double *Ma,double *Mb,double *Mr){
+    int i,j,k;
+    for(i=0;i<size;i++){
+        for(j=0;j<size;j++){
+            //Auxiliar pointers
+            double *pA, *pB;
+            double auxiliarSum=0;
+            pA=Ma+(i*size);
+            pB=Mb+j;        
+            for(k=0;k<size;k++,pA+=size,pB++){
+                auxiliarSum+=(*pA * *pB);
+            }
+            Mr[i*size+j]=auxiliarSum;
+        }
+    }
+
+}
 /**
 * Main function
 * @param argc that is the number of arguments
@@ -59,20 +109,9 @@ int main (int argc, char ** argv){
     printMatrix(N,Ma);
     printf("\nMatriz B\n");    
     printMatrix(N,Mb);
-    for(int i=0;i<N;i++){
-        for(int j=0;j<N;j++){
-            //Auxiliar pointers
-            double *pA, *pB;
-            double auxiliarSum=0;
-            pA=Ma+(i*N);
-            pB=Mb+j;        
-            for(int k=0;k<N;k++,pA++,pB+=N){
-                auxiliarSum+=(*pA * *pB);
-            }
-            Mr[i*N+j]=auxiliarSum;
-        }
-    }
+    MatrixMM(N,Ma,Mb,Mr);
     printf("\nMatriz resultante\n");
     printMatrix(N,Mr);
+    
     return 0;
 }
