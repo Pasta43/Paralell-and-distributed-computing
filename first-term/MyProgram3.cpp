@@ -58,6 +58,7 @@ float randMM(){
 * @return The matrix product between Ma and Mb
 */
 void multiMatrix(vector<vector<double>> Ma, vector<vector<double>> Mb){
+	sampleStart();
 	vector<vector<double>> MResult(Ma.size(),vector<double>(Ma.size(),0));
 	for(int i=0;i<Ma.size();i++){
 		for(int j=0;j<Ma.size();j++){
@@ -66,6 +67,7 @@ void multiMatrix(vector<vector<double>> Ma, vector<vector<double>> Mb){
 			}
 		}
 	}
+	sampleEnd();
 }
 /**
  * @brief Function that generates a random value 
