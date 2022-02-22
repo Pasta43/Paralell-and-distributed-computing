@@ -29,7 +29,7 @@ double ** createMatrix(int size){
 *   
 *
 */
-void initializeMatrixes(int size,double ** &matA double ** &matB double ** &matC ){
+void initializeMatrixes(int size,double ** &matA, double ** &matB, double ** &matC ){
     int i,j;
     for(i=0;i<size;i++){
         for(j=0;j<size;j++){
