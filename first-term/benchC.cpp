@@ -91,7 +91,7 @@ void printMatrix(double **&matrix,int size){
         printf("\n");
         
     }
-    printf("\n\n")
+    printf("\n\n");
 }
 /**
 *
