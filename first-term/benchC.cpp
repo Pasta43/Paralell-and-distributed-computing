@@ -14,6 +14,38 @@
 #include <stdlib.h>
 #include <random>
 #include <chrono>
+#include <unistd.h>
+#include <math.h>
+#include <cstring>
+using namespace std;
+
+struct timespec start,endCount;
+
+/*Inicio: medida de tiempo*/
+void sampleStart(){
+	clock_gettime(CLOCK_MONOTONIC,&start);
+}
+
+/*Fin: medida de tiempo*/
+void sampleEnd(){
+	clock_gettime(CLOCK_MONOTONIC,&endCount);
+	/*Se imprime el tiempo*/
+	double totalTime;
+	totalTime=(endCount.tv_sec-start.tv_sec)*1e9;
+	totalTime=(totalTime+endCount.tv_nsec-start.tv_nsec)*1e-9;
+	printf("Execution time: %f\n",totalTime);
+}
+
+/*More randomly*/
+float randMM(){
+	float min=0.001,max=9.999;
+	static int first=-1;
+	if((first=(first<0)))
+		srand(time(NULL)+getpid());
+	if(min>max)
+		return errno=EDOM,NAN;
+	return min +(float)rand()/((float)RAND_MAX/(max-min)); 
+}
 /**
 *   
 */
@@ -36,8 +68,8 @@ void initializeMatrixes(int size,double ** &matA, double ** &matB, double ** &ma
     int i,j;
     for(i=0;i<size;i++){
         for(j=0;j<size;j++){
-            matA[i][j]=2.1*(i-j);
-            matB[i][j]=1.2*(i-j);
+            matA[i][j]=randMM();
+            matB[i][j]=randMM();
             matC[i][j]=0;
         }
     }
@@ -105,7 +137,9 @@ int main(int argc,char **argv){
     initializeMatrixes(N,matA,matB,matR);
     printMatrix(matA,N);
     printMatrix(matB,N);
+    sampleStart();
     matR=matrixProduct(N,matA,matB);
+    sampleEnd();
     printMatrix(matR,N);
     destroyMatrix(N,matA);
     destroyMatrix(N,matB);
