@@ -101,7 +101,6 @@ double ** matrixProduct(int size, double ** &matrix1,double ** &matrix2){
     double **matrix = createMatrix(size);
     for(i=0;i<size;i++){
         for(j=0;j<size;j++){
-            matrix[i][j]=0;
             for(k=0;k<size;k++){
                 matrix[i][j]+=matrix1[i][k]*matrix2[k][j];
             }   
