@@ -89,7 +89,9 @@ void printMatrix(double **&matrix,int size){
             printf(" %f ",matrix[i][j]);
         }   
         printf("\n");
+        
     }
+    printf("\n\n")
 }
 /**
 *
@@ -103,8 +105,8 @@ int main(int argc,char **argv){
     initializeMatrixes(N,matA,matB,matR);
     printMatrix(matA,N);
     printMatrix(matB,N);
+    matR=matrixProduct(N,matA,matB);
     printMatrix(matR,N);
-    matrixProduct(N,matA,matB);
     destroyMatrix(N,matA);
     destroyMatrix(N,matB);
     destroyMatrix(N,matR);
