@@ -107,5 +107,5 @@ int main(int argc,char **argv){
     matrixProduct(N,matA,matB);
     destroyMatrix(N,matA);
     destroyMatrix(N,matB);
-    destroyMatrix(N,matC);
+    destroyMatrix(N,matR);
 }
