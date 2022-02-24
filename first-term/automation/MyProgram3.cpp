@@ -1,7 +1,7 @@
 /*
 * Date: 2022-02-01
 * Author: Santiago Pérez González
-* Course: Paralell and Distributed Computing
+* Course: Parallel and Distributed Computing
 * Topic: build of first benchmark
 * Benchmark: toy app thath allows to meausre performance 
 * of a specific aspet of the computer
