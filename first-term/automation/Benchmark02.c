@@ -1,7 +1,7 @@
 /*
 * Date: 2022-02-08
 * Author: Santiago Pérez González
-* Course: Paralell and Distributed Computing
+* Course: Parallel and Distributed Computing
 * Topic: build of second benchmark
 * Benchmark: Implement step by step benchmark of Matrix Multiplication
 * algorithm clasic (rows*columns) of matrixes of same dimension
