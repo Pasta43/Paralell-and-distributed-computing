@@ -1,7 +1,7 @@
 /*
 * Date: 2022-02-01
 * Author: Santiago Pérez González
-* Course: Paralell and Distributed Computing
+* Course: Parallel and Distributed Computing
 * Topic: first application to measure the performance
 */
 

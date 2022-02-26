@@ -7,8 +7,6 @@
 
 $PATH=`pwd`;
 chomp($PATH);
-#print($PATH);
-#Number of repetition
 $N =2;
 #Vector of executables
 @Executables=("bench01","bench02");
@@ -19,7 +17,7 @@ foreach $exe (@Executables){
 		#print"$File \n";
 		for($i=0;$i<$N;$i++){
 			system "$PATH/$exe $size >> $File";
-			#print "$PATH/$exe $size\n";
+			
 		}
 	}
 	close($File);
