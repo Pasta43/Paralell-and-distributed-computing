@@ -36,9 +36,19 @@ int main(){
         }
     } 
     //Print A matrix
+    printf("Matriz A");
     for(int i=0;i<r1;i++){
         for(int j=0;j<c1;j++){
             printf("%d ",mA[i][j]);
+        }
+        printf("\n");
+    } 
+    printf("\n");
+    printf("Matriz B");
+    //Print B matrix
+    for(int i=0;i<r1;i++){
+        for(int j=0;j<c1;j++){
+            printf("%d ",mB[i][j]);
         }
         printf("\n");
     } 
