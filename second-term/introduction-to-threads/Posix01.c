@@ -54,31 +54,34 @@ int main(){
     } 
     //Declared an integer that cointains the products of rows*columns
     int maxRC=r1*c1;
-    pthreads *threads;
+    pthread_t *threads;
     threads = (pthread_t*)malloc(maxRC*sizeof(pthread_t));
     int counter=0;
     int *data = NULL;
     for(int i=0;i<r1;i++){
         for(int j=0;j<c2;j++){
             //Save rows and columns in data (pointers)
-            data=(int*)malloc((24)*sizeof(int));
-            for(int k=0;k<c1;k++){
-                data[k+1]=ma[i][k];
-            }
-            for(int k=0;k<c2;k++){
+            data=(int*)malloc((20)*sizeof(int));
+            data[0]=c1;
+            for(int k=0;k<c1;k++)
+                data[k+1]=mA[i][k];
+            for(int k=0;k<c2;k++)
                 data[k+c1+1]=mB[k][j];
-            }
-        }
-        //Threads creation
+                //Threads creation
         pthread_create(&threads[counter++],NULL,matrixProduct,(void *)(data));
-    }
-    printf("Matriz Resultante\n");
-    //Print B matrix
-    for(int i=0;i<r1;i++){
-        for(int j=0;j<c1;j++){
-            printf("%d ",mB[i][j]);
         }
-        printf("\n");
+        
+    }
+    printf("\nMatriz Resultante\n");
+    //Print result matrix
+    for(int i=0;i<maxRC;i++){
+            //Join of threads
+            void *k;
+            pthread_join(threads[i],&k);
+            int *p =(int *) k;
+            printf("%d ",*p);
+            if((i+1)%c2==0){
+                printf("\n");
+            }
     } 
-    data=(int *)malloc()
 }
