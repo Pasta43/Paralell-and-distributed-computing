@@ -26,7 +26,11 @@
 */
 void *matrixProduct(void *arg);
 void sampleStart();
+void sampleEnd();
 float randMM();
-void initMatrix(int size, double *ma, double *mb,double *mr);
-
+void initializeMatrix(int size, double *ma, double *mb,double *mr);
+void printMatrix(int size, double *m);
+void matrixMM(int size, double *a, double *b, double *c);
+void *matrixMM1f(int size, double *a, double *b, double *c);
+void *matrixMM1c(int size, double *a, double *b, double *c);
 #endif
