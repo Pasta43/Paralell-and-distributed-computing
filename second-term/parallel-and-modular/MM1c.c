@@ -1,11 +1,13 @@
 /*
 * Date: 2022-03-16
-* Autor: Santiago Pérez
+* Autor: Andres C. Lopez R.
 * Subject: Parallel and Distributed Computing.
 * Topic: Build of parallel benchmark
 * Description: Application that allows evaluating the performance
 * of a specific aspect of the computer using matrix multiplication
 * with the calssical algorithm (rows x columns)
+*
+* Code taken from: https://github.com/ACLXRD/Computacion_Paralela_Distribuida/tree/master
 */
 
 /*Interfaces*/

@@ -3,8 +3,10 @@
 * Subject: Parallel and Distributed Computing.
 * Topic: Construction of the first Benchmark
 * Description: Application that allows evaluating the performance
-  of a specific aspect of the computer using matrix multiplication
-  with the calssical algorithm (rows x columns)
+*  of a specific aspect of the computer using matrix multiplication
+*  with the calssical algorithm (rows x columns)
+*
+* Code taken from: https://github.com/ACLXRD/Computacion_Paralela_Distribuida/tree/master
 */
 
 #ifndef MODULE_C_H_INCLUDE

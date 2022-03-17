@@ -1,5 +1,5 @@
 /*Fecha: 2022-03-16
-* Autor: Santiago Pérez
+* Autor: Andres C. Lopez R.
 * Subject: Parallel and Distributed Computing.
 * Topic: Poxis implemetation (Library)
 * Description: Application for matrix multiplication
@@ -15,6 +15,8 @@
         execution.
     5. Matrix's size always squared (NxN)
     6.  Print matrix with double pointer.
+
+* Code taken from: https://github.com/ACLXRD/Computacion_Paralela_Distribuida/tree/master
 */
 
 

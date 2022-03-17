@@ -1,10 +1,11 @@
-/*Fecha: 08/02/2022
-* Autor: Andres C. Lopez R.
+/*Fecha: 2022-03-16
+* Autor: Santiago Pérez
 * Subject: Parallel and Distributed Computing.
 * Topic: Construction of the first Benchmark
 * Description: Application that allows evaluating the performance
-  of a specific aspect of the computer using matrix multiplication
-  with the calssical algorithm (rows x columns)
+*  of a specific aspect of the computer using matrix multiplication
+*  with the calssical algorithm (rows x columns)
+* Code taken from: https://github.com/ACLXRD/Computacion_Paralela_Distribuida/tree/master
 */
 
 /*Interfaces*/
