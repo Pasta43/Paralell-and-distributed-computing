@@ -20,16 +20,30 @@
 #include <errno.h>
 
 
+// typedef struct dataThread
+// {
+// 	int idThread;
+// 	int portionSize;
+// 	int initRow;
+// 	int endRow;
+// } implicit_data;
+
+
 /*CONSTANTS*/
 struct timespec inicio, fin;
 
+
 /* -------------------------------------Funciones ------------------------------------*/
-/*	@brief: Get the init time*/
+
+
+/**
+ * 	@brief: Get the init time*/
 void sampleStart(){
 	clock_gettime(CLOCK_MONOTONIC, &inicio);	
 }
 
-/*	@brief: Get the end time */
+/**
+ * 	@brief: Get the end time */
 void sampleEnd(){
 	clock_gettime(CLOCK_MONOTONIC, &fin);	
 	double totalTime;
