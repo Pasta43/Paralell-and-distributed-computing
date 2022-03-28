@@ -48,7 +48,7 @@ int main(int argc, char *argv[]) {
 	printf("Ma\n");
 	printMatrix(N, Ma);
 	printf("Mb\n");
-	printMatrix(N, Mb);
+	printTransposed(N, Mb);
 	printf("Mr\n");
 	printMatrix(N, Mr);
 		

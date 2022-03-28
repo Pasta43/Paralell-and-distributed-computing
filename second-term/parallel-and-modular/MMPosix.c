@@ -1,7 +1,7 @@
 /*Fecha: 2022-03-16
-* Autor: Andres C. Lopez R.
+* Autor: Santiago Pérez.
 * Subject: Parallel and Distributed Computing.
-* Topic: Poxis implemetation (Library)
+* Topic: Posix implemetation (Library)
 * Description: Application for matrix multiplication
   with the classical algorithm (rows x columns) using
   global variables. Also, using the following functions:
@@ -29,41 +29,10 @@
 #include <sys/time.h>
 
 
-
-/*Global variables*/
-int N, Nthreads;
-double **Ma, **Mb, **Mc;
-/**
- * @brief Function that will be sent to each thread, that makes the matrix multiplication.
- * The matrix A divides in slices, in function with the dimension and the number of threads that requires the 
- * user.
- * 
- * Note: the function will be void, and this returns a potential warning. Think in it to improve it
- * @param arg that has the thread id
- */
-void *multMM(void *arg){
-	int i,j,k,idTh;
-	int portionSize, initRow, endRow;
-	double sum;
-	idTh=*(int *) arg; //Void pointer to integer 
-	portionSize=N/Nthreads; //It is determined the portion of matrix A to send to each thread
-	initRow=idTh*portionSize; //It is passed the beggining of the row 
-	endRow=(idTh+1)*portionSize; //It is passed the end of the row
-	for (i = initRow; i < endRow; i++){
-		for (j = 0; j < N; ++j){
-			sum=0;
-			for ( k = 0; k < N; k++){
-				sum+=Ma[i][k]*Mb[k][j];
-			}
-			Mc[i][j]=sum;
-		}
-	}
-}
-
-
 /*  @breif main(): Main function
 */
 int main(int argc, char* argv[]){
+    double **Ma,**Mb,**Mc;
     if (argc!=3){
         printf("./MMPosix <matrix size> <# of threads>\n");
         return -1;
@@ -71,8 +40,8 @@ int main(int argc, char* argv[]){
     
     
     /*Init of global variables*/
-    N           = atof(argv[1]);    /* Matrix's size.*/
-    Nthreads    = atof(argv[2]);    /* Number of threads.*/
+    int N           = atof(argv[1]);    /* Matrix's size.*/
+    int Nthreads    = atof(argv[2]);    /* Number of threads.*/
     
 
     pthread_t *threads=(pthread_t*)malloc(N*sizeof(pthread_t));//Thread reservation
@@ -87,12 +56,20 @@ int main(int argc, char* argv[]){
         printf("Matriz B\n");
         printMatrix_DoublePointers (Mb, N);
     }
+    
     sampleStart();
     for (int i = 0; i < Nthreads; ++i){
         int *idThread;
         idThread=(int *)malloc(sizeof(int));
         *idThread=i;
-        pthread_create(&threads[i],NULL,multMM,(void *)idThread);
+        struct dataThread *dataThread_=(struct dataThread *)malloc(sizeof(struct dataThread));//Thread data reservation
+        dataThread_->NThreads=Nthreads;
+        dataThread_->N=N;
+        dataThread_->Ma=Ma;
+        dataThread_->Mb=Mb;
+        dataThread_->Mr=Mc;
+        dataThread_->idThread=*idThread;
+        pthread_create(&threads[i],NULL,multMM,(void *)dataThread_);
     }
     for (int i = 0; i < Nthreads; ++i){
         

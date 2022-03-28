@@ -68,6 +68,38 @@ double randNumber(){
     return min + (float)rand()/((float)RAND_MAX/(max-min));
 }
 
+/**
+ * @brief Function that will be sent to each thread, that makes the matrix multiplication.
+ * The matrix A divides in slices, in function with the dimension and the number of threads that requires the 
+ * user.
+ * 
+ * Note: the function will be void, and this returns a potential warning. Think in it to improve it
+ * @param arg that has the thread struct with the needed info for the thread
+ */
+void *multMM(void *arg){
+	struct dataThread *data = (struct dataThread *)arg;
+	int idTh = data->idThread;
+	double **Ma = data->Ma;
+	double **Mb = data->Mb;
+	double **Mr = data->Mr;
+	int N = data->N;
+	int Nthreads = data->NThreads;
+	double sum;
+	int i,j,k;
+	idTh=*(int *) arg; //Void pointer to integer 
+	int portionSize=N/Nthreads; //It is determined the portion of matrix A to send to each thread
+	int initRow=idTh*portionSize; //It is passed the beggining of the row 
+	int endRow=(idTh+1)*portionSize; //It is passed the end of the row
+	for (i = initRow; i < endRow; i++){
+		for (j = 0; j < N; ++j){
+			sum=0;
+			for ( k = 0; k < N; k++){
+				sum+=Ma[i][k]*Mb[k][j];
+			}
+			Mr[i][j]=sum;
+		}
+	}
+}
 /*	@brief: Gives values for each space of a matrix
 	@param SZ: Size of the matrix
 
@@ -76,12 +108,27 @@ void initMatrix(int SZ, double *Ma, double *Mb, double *Mr){
 	int i, j;
 	for(i=0; i<SZ; ++i){
 		for(j=0;j<SZ;++j){
-			Ma[j+i*SZ] = 3.0*(i-j);
-			Mb[j+i*SZ] = 2.8*(j+i);
+			Ma[j+i*SZ] = randNumber();
+			Mb[j+i*SZ] = randNumber();
+			// Ma[j+i*SZ] = randNumber();
+			// Mb[j+i*SZ] = randNumber();
 			Mr[j+i*SZ] = 0.0;
 		}
 	}
 		
+}
+
+void printTransposed(int SZ,double *M){
+	int i,j;
+	for (i=0;i<SZ; ++i){
+		for (j=0;j<SZ; ++j){
+			printf("  %f  ",M[j*SZ+i]);
+		}
+		printf("\n");
+	}
+		printf("----------------------------");
+		printf("\n");
+	
 }
 
 /*	@brief: Print a matrix
