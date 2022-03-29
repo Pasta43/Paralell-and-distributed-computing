@@ -1,5 +1,5 @@
-/*Fecha: 08/02/2022
-* Autor: Andres C. Lopez R.
+/*Fecha: 2022-02-08
+* Author: Santiago Pérez.
 * Subject: Parallel and Distributed Computing.
 * Topic: Build of parallel benchmark
 * Description: Application that allows evaluating the performance
@@ -42,12 +42,14 @@ int main(int argc, char *argv[]) {
 	sampleStart();
 	MM1f(N, Ma, Mb, Mr);
 	sampleEnd();
-	printf("Ma\n");
-	printMatrix(N, Ma);
-	printf("Mb\n");
-	printTransposed(N, Mb);
-	printf("Mr\n");
-	printMatrix(N, Mr);
+	if (N<4){
+		printf("Ma\n");
+		printMatrix(N, Ma);
+		printf("Mb\n");
+		printTransposed(N, Mb);
+		printf("Mr\n");
+		printMatrix(N, Mr);
+	}
 		
 	return 0;
 }

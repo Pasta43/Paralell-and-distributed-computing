@@ -25,7 +25,7 @@ void printMatrix_DoublePointers (double **M, int size);
 void *multMM(void *arg);
 void printTransposed(int size, double *M);
 
-struct dataThread
+typedef struct dataThread
 {
 	int idThread;
 	int portionSize;

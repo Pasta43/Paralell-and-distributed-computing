@@ -1,5 +1,5 @@
-/*Fecha: 2022-03-16
-* Autor: Santiago Pérez.
+/*Date: 2022-03-16
+* Author: Santiago Pérez.
 * Subject: Parallel and Distributed Computing.
 * Topic: Posix implemetation (Library)
 * Description: Application for matrix multiplication

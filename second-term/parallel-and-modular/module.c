@@ -1,5 +1,5 @@
 /*Date: 2022-03-16
- * Autor: Santiago Pérez
+ * Author: Santiago Pérez
  * Subject: Parallel and Distributed Computing.
  * Topic: Construction of the first Benchmark
  * Description: Application that allows evaluating the performance

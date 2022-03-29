@@ -1,13 +1,12 @@
 /*
 * Date: 2022-03-16
-* Autor: Andres C. Lopez R.
+* Author: Santiago Pérez
 * Subject: Parallel and Distributed Computing.
 * Topic: Build of parallel benchmark
 * Description: Application that allows evaluating the performance
 * of a specific aspect of the computer using matrix multiplication
 * with the calssical algorithm (rows x columns)
 *
-* Code taken from: https://github.com/ACLXRD/Computacion_Paralela_Distribuida/tree/master
 */
 
 /*Interfaces*/
@@ -48,13 +47,13 @@ int main(int argc, char *argv[]) {
 	sampleStart();
 	MM1c(N, Ma, Mb, Mr);
 	sampleEnd();
-	printf("Ma\n");
-	printMatrix(N, Ma);
-	printf("Mb\n");
-	printMatrix(N, Mb);
-	printf("Mr\n");
-	printMatrix(N, Mr);
-	
-		
+	if(N<4){
+		printf("Ma\n");
+		printMatrix(N, Ma);
+		printf("Mb\n");
+		printMatrix(N, Mb);
+		printf("Mr\n");
+		printMatrix(N, Mr);
+	}
 	return 0;
 }
