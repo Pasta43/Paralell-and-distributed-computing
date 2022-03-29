@@ -1,4 +1,4 @@
-#Plegadora paralela y modular.
+#Carpeta parallel-and-modular.
 
 En esta carpeta encontrará estos archivos:
 
@@ -9,3 +9,10 @@ En esta carpeta encontrará estos archivos:
 * *module.h* Ese es el archivo con todas las definiciones de funciones que se usan e importan en los archivos anteriores.
 * *Makefile* que es un script para compilar todos los programas: *MMPosix*, *MM1f* y *MM1c*. Esto generará ejecutables para ejecutar los programas.
 
+Para compilar todo utilizar este comando
+
+```
+make PROGS
+```
+
+Y esto generará todos los ejecutables.
