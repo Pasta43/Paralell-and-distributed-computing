@@ -5,9 +5,7 @@
 * Description: Application that allows evaluating the performance
 * of a specific aspect of the computer using matrix multiplication
 * with the calssical algorithm (rows x columns)
-*
-* Code taken from: https://github.com/ACLXRD/Computacion_Paralela_Distribuida/tree/master
-/*Interfaces*/
+*/
 
 #include "module.h"
 #include <stdio.h>
@@ -40,11 +38,10 @@ int main(int argc, char *argv[]) {
 	Ma = MEM_CHUNK;
 	Mb = Ma + N*N;
 	Mr = Mb + N*N;
-	
 	initMatrix(N, Ma, Mb, Mr);
 	sampleStart();
-	matrixMultiplyMM1f(N, Ma, Mb, Mr);
-    
+	MM1f(N, Ma, Mb, Mr);
+	sampleEnd();
 	printf("Ma\n");
 	printMatrix(N, Ma);
 	printf("Mb\n");
@@ -52,14 +49,5 @@ int main(int argc, char *argv[]) {
 	printf("Mr\n");
 	printMatrix(N, Mr);
 		
-	sampleEnd();
 	return 0;
 }
-/*
-Compile
-    gcc modulo.c -c
-    gcc MM1c.c -c
-	gcc modulo.o MM1c.o -o MM1c
-Execute
-	time ./MM1c N--> N : Any number
-*/

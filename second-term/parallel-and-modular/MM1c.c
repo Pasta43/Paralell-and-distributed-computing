@@ -46,22 +46,15 @@ int main(int argc, char *argv[]) {
 	
 	initMatrix(N, Ma, Mb, Mr);
 	sampleStart();
-	matrixMultiplyMM1c(N, Ma, Mb, Mr);
+	MM1c(N, Ma, Mb, Mr);
+	sampleEnd();
 	printf("Ma\n");
 	printMatrix(N, Ma);
 	printf("Mb\n");
 	printMatrix(N, Mb);
 	printf("Mr\n");
 	printMatrix(N, Mr);
-	sampleEnd();
+	
 		
 	return 0;
 }
-/*
-Compile
-    gcc modulo.c -c
-    gcc MM1c.c -c
-	gcc modulo.o MM1c.o -o MM1c
-Execute
-	time ./MM1c N--> N : Any number
-*/
