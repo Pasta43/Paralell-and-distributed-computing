@@ -16,7 +16,7 @@
     5. Matrix's size always squared (NxN)
     6.  Print matrix with double pointer.
 
-* Code taken from: https://github.com/ACLXRD/Computacion_Paralela_Distribuida/tree/master
+* 
 */
 
 
@@ -28,9 +28,13 @@
 #include <pthread.h>
 #include <sys/time.h>
 
-
-/*  @breif main(): Main function
-*/
+/**
+ * @brief Main function
+ * 
+ * @param argc That is the arguments count
+ * @param argv That is the arguments values
+ * @return 0 if everything is ok or another number in error case
+ */
 int main(int argc, char* argv[]){
     double **Ma,**Mb,**Mc;
     if (argc!=3){
