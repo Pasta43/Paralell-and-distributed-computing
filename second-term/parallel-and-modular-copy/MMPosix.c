@@ -1,4 +1,4 @@
-/*Date: 2022-03-16
+/*Date: 2022-03-30
 * Author: Santiago Pérez.
 * Subject: Parallel and Distributed Computing.
 * Topic: Posix implemetation (Library)
@@ -71,6 +71,7 @@ void *multMM(void *arg)
 			Mr[i][j] = sum;
 		}
 	}
+    return arg;
 }
 
 /**
@@ -84,6 +85,7 @@ int main(int argc, char* argv[]){
     double **Ma,**Mb,**Mc;
     int N,Nthreads,i;
     pthread_t *threads;
+    threadsArguments *theArguments;
     if (argc!=3){
         printf("./MMPosix <matrix size> <# of threads>\n");
         return -1;
@@ -99,18 +101,15 @@ int main(int argc, char* argv[]){
     }
 
     threads=(pthread_t*)malloc(N*sizeof(pthread_t));/*Thread reservation*/
-    threadsArguments theArguments[10];
+    theArguments= (threadsArguments*)malloc(Nthreads*sizeof(threadsArguments));
     /*Memory creation and reserce for each matrix*/
     Ma = memReserve(N); 
     Mb = memReserve(N);
     Mc = memReserve(N);
     initMatrix_DoublePointers (Ma, Mb, Mc, N);
-    if (N<5){
-        printf("Matriz A\n");
-        printMatrix_DoublePointers (Ma, N);
-        printf("Matriz B\n");
-        printMatrix_DoublePointers (Mb, N);
-    }
+    
+    printMatrix_DoublePointers (Ma, N);
+    printMatrix_DoublePointers (Mb, N);
     
     sampleStart();
     for (i = 0; i < Nthreads; ++i){
@@ -128,11 +127,7 @@ int main(int argc, char* argv[]){
     }
     sampleEnd();
     free(threads);
-    if (N<5){
-        printf("Matriz C\n");
-        printMatrix_DoublePointers (Mc, N);
-    }
-    
+    printMatrix_DoublePointers (Mc, N);
     return 0;
 }
 

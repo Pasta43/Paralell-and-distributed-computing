@@ -1,6 +1,7 @@
-GCC = gcc-11
+GCC = gcc-11 
 FLAGS = -ansi -pedantic -Wall 
 CFLAGS = -lm -lpthread -fopenmp 
+THEPROGS=MM1c MM1f MMPosix
 
 PROGS: MM1c MM1f MMPosix
 
@@ -20,5 +21,4 @@ MMPosix:
 	$(GCC) $(FLAGS) module.o $@.o -o $@ $(CFLAGS) 
 
 clean:
-	$(RM) $(PROGS) *.o
-	$(RM) MM1c MM1f MMPosix
+	$(RM) $(THEPROGS) *.o

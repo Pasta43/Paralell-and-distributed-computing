@@ -1,4 +1,4 @@
-/*Date: 2022-03-16
+/*Date: 2022-03-30
  * Author: Santiago Pérez
  * Subject: Parallel and Distributed Computing.
  * Topic: Construction of the first Benchmark
@@ -241,8 +241,9 @@ void initMatrix_DoublePointers(double **MA, double **MB, double **MC, int size)
  */
 void printMatrix_DoublePointers(double **M, int size)
 {
-	int i, j; /*Indices*/
-	for (i = 0; i < size; ++i)
+	if(size<5){
+		int i, j; /*Indices*/
+		for (i = 0; i < size; ++i)
 	{
 		for (j = 0; j < size; ++j)
 		{
@@ -251,4 +252,5 @@ void printMatrix_DoublePointers(double **M, int size)
 		printf("\n");
 	}
 	printf("-----------------------------\n");
+	}
 }

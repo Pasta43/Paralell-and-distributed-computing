@@ -17,9 +17,6 @@
 #include <errno.h>
 
 
-/*CONSTANTS*/
-struct timespec inicio, fin;
-
 /* -------------------------------------Funciones ------------------------------------*/
 
 /*Varaible of high value to reserve memory*/
