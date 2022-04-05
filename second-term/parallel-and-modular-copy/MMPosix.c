@@ -29,50 +29,6 @@
 #include <sys/time.h>
 #include <omp.h>
 
-typedef struct argsThreads{
-    int numThreads;
-    int matrixSize;
-    double **matrixA;
-    double **matrixB;
-    double **matrixR;
-    int idThread;
-} threadsArguments;
-
-/**
- * @brief Function that will be sent to each thread, that makes the matrix multiplication.
- * The matrix A divides in slices, in function with the dimension and the number of threads that requires the
- * user.
- *
- * Note: the function will be void, and this returns a potential warning. Think in it to improve it
- * @param arg that has the thread struct with the needed info for the thread
- */
-void *multMM(void *arg)
-{
-    int i, j, k,idTh,N,Nthreads,portionSize,initRow,endRow;
-    double **Ma,**Mb,**Mr,sum;
-	idTh = ((threadsArguments*)arg)->idThread;
-	Ma = ((threadsArguments*)arg)->matrixA;
-	Mb = ((threadsArguments*)arg)->matrixB;
-	Mr = ((threadsArguments*)arg)->matrixR;
-	N = ((threadsArguments*)arg)->matrixSize;
-	Nthreads = ((threadsArguments*)arg)->numThreads;
-	portionSize = N / Nthreads;		   /*It is determined the portion of matrix A to send to each thread*/
-	initRow = idTh * portionSize;	   /*It is passed the beggining of the row*/
-	endRow = (idTh + 1) * portionSize; /*It is passed the end of the row*/
-	for (i = initRow; i < endRow; i++)
-	{
-		for (j = 0; j < N; ++j)
-		{
-			sum = 0;
-			for (k = 0; k < N; k++)
-			{
-				sum += Ma[i][k] * Mb[k][j];
-			}
-			Mr[i][j] = sum;
-		}
-	}
-    return arg;
-}
 
 /**
  * @brief Main function
