@@ -27,6 +27,7 @@ void MM1c(int size, double *Ma, double *Mb, double *Mr);
 void MM1f(int size, double *Ma, double *Mb, double *Mr);
 void *multMM(void *arg);
 void MM1cOMP(int threads, int size, double *a, double *b, double *c);
+void MM1fOMP(int threads, int size, double *a, double *b, double *c);
 double ** memReserve (int size);
 void initMatrix(int SZ, double *Ma, double *Mb, double *Mr);
 void printMatrix(int SZ, double *M);

@@ -131,17 +131,20 @@ void initMatrix(int SZ, double *Ma, double *Mb, double *Mr)
  */
 void printTransposed(int SZ, double *M)
 {
-	int i, j;
-	for (i = 0; i < SZ; ++i)
+	if (SZ<5)
 	{
-		for (j = 0; j < SZ; ++j)
+		int i, j;
+		for (i = 0; i < SZ; ++i)
 		{
-			printf("  %f  ", M[j * SZ + i]);
+			for (j = 0; j < SZ; ++j)
+			{
+				printf("  %f  ", M[j * SZ + i]);
+			}
+			printf("\n");
 		}
+		printf("----------------------------");
 		printf("\n");
 	}
-	printf("----------------------------");
-	printf("\n");
 }
 /**
  * @brief Print a matrix
@@ -152,7 +155,8 @@ void printTransposed(int SZ, double *M)
 void printMatrix(int SZ, double *M)
 {
 	int i, j;
-	if(SZ<5){
+	if (SZ < 5)
+	{
 		for (i = 0; i < SZ; ++i)
 		{
 			for (j = 0; j < SZ; ++j)
@@ -164,7 +168,6 @@ void printMatrix(int SZ, double *M)
 		printf("----------------------------");
 		printf("\n");
 	}
-	
 }
 
 /**
@@ -260,7 +263,41 @@ void MM1f(int size, double *Ma, double *Mb, double *Mr)
 		}
 	}
 }
-
+/**
+ * @brief Function that makes the matrix multiplication between two matrixes and the result is saved in another matrix. This uses Open MP
+ *
+ * @param threads Threads number
+ * @param size  Matrix size
+ * @param a Matrix A
+ * @param b Matrix B transposed
+ * @param c Result matrix
+ */
+void MM1fOMP(int threads, int size, double *a, double *b, double *c)
+{
+	omp_set_num_threads(threads);
+#pragma omp parallel
+	{
+		int i, j, k;
+#pragma omp for
+		
+		for (i = 0; i < size; ++i)
+		{
+			for (j = 0; j < size; ++j)
+			{
+				/*Necesita puteros auxiliares*/
+				double *pA, *pB;
+				double sumaAuxiliar = 0.0;
+				pA = a + (i * size);
+				pB = b + (j * size);
+				for (k = 0; k < size; ++k, pA++, pB++)
+				{
+					sumaAuxiliar += (*pA * *pB);
+				}
+				c[i * size + j] = sumaAuxiliar;
+			}
+		}
+	}
+}
 /****************** Functions for posix (program using threads)**************************/
 
 /**
