@@ -16,23 +16,23 @@
 #include <unistd.h>
 #include <sys/time.h>
 #include <errno.h>
-
+#include <omp.h>
+#include <pthread.h>
 /*CONSTANTS*/
 struct timespec inicio, fin;
-
 
 /* -------------------------------------Funciones ------------------------------------*/
 /**
  * @brief Function that starts the time measure
- * 
+ *
  */
 void sampleStart()
 {
 	clock_gettime(CLOCK_MONOTONIC, &inicio);
 }
 /**
- * @brief Function that ends the time measure 
- * 
+ * @brief Function that ends the time measure
+ *
  */
 void sampleEnd()
 {
@@ -53,14 +53,14 @@ void sampleEnd()
  */
 void *multMM(void *arg)
 {
-    int i, j, k,idTh,N,Nthreads,portionSize,initRow,endRow;
-    double **Ma,**Mb,**Mr,sum;
-	idTh = ((threadsArguments*)arg)->idThread;
-	Ma = ((threadsArguments*)arg)->matrixA;
-	Mb = ((threadsArguments*)arg)->matrixB;
-	Mr = ((threadsArguments*)arg)->matrixR;
-	N = ((threadsArguments*)arg)->matrixSize;
-	Nthreads = ((threadsArguments*)arg)->numThreads;
+	int i, j, k, idTh, N, Nthreads, portionSize, initRow, endRow;
+	double **Ma, **Mb, **Mr, sum;
+	idTh = ((threadsArguments *)arg)->idThread;
+	Ma = ((threadsArguments *)arg)->matrixA;
+	Mb = ((threadsArguments *)arg)->matrixB;
+	Mr = ((threadsArguments *)arg)->matrixR;
+	N = ((threadsArguments *)arg)->matrixSize;
+	Nthreads = ((threadsArguments *)arg)->numThreads;
 	portionSize = N / Nthreads;		   /*It is determined the portion of matrix A to send to each thread*/
 	initRow = idTh * portionSize;	   /*It is passed the beggining of the row*/
 	endRow = (idTh + 1) * portionSize; /*It is passed the end of the row*/
@@ -76,7 +76,7 @@ void *multMM(void *arg)
 			Mr[i][j] = sum;
 		}
 	}
-    return arg;
+	return arg;
 }
 
 /**
@@ -145,23 +145,26 @@ void printTransposed(int SZ, double *M)
 }
 /**
  * @brief Print a matrix
- * 
+ *
  * @param SZ  that is the matrix size
  * @param M that is the matrix to print
  */
 void printMatrix(int SZ, double *M)
 {
 	int i, j;
-	for (i = 0; i < SZ; ++i)
-	{
-		for (j = 0; j < SZ; ++j)
+	if(SZ<5){
+		for (i = 0; i < SZ; ++i)
 		{
-			printf("  %f  ", M[j + i * SZ]);
+			for (j = 0; j < SZ; ++j)
+			{
+				printf("  %f  ", M[j + i * SZ]);
+			}
+			printf("\n");
 		}
+		printf("----------------------------");
 		printf("\n");
 	}
-	printf("----------------------------");
-	printf("\n");
+	
 }
 
 /**
@@ -174,7 +177,7 @@ void printMatrix(int SZ, double *M)
  */
 void MM1c(int size, double *Ma, double *Mb, double *Mr)
 {
-	int i, j,k;
+	int i, j, k;
 	for (i = 0; i < size; ++i)
 	{
 		for (j = 0; j < size; ++j)
@@ -192,6 +195,42 @@ void MM1c(int size, double *Ma, double *Mb, double *Mr)
 		}
 	}
 }
+
+/**
+ * @brief Function that makes the matrix multiplication between two matrixes and the result is saved in another matrix. This uses Open MP
+ *
+ * @param threads Threads number
+ * @param size  Matrix size
+ * @param a Matrix A
+ * @param b Matrix B
+ * @param c Result matrix
+ */
+void MM1cOMP(int threads, int size, double *a, double *b, double *c)
+{
+	omp_set_num_threads(threads);
+#pragma omp parallel
+	{
+		int i, j, k;
+#pragma omp for
+		for (i = 0; i < size; ++i)
+		{
+			for (j = 0; j < size; ++j)
+			{
+				/*Necesita puteros auxiliares*/
+				double *pA, *pB;
+				double auxiliarSum = 0.0;
+				pA = a + (i * size);
+				pB = b + j;
+				for (k = 0; k < size; ++k, pA++, pB += size)
+				{
+					auxiliarSum += (*pA * *pB);
+				}
+				c[i * size + j] = auxiliarSum;
+			}
+		}
+	}
+}
+
 /**
  * @brief Function that makes the matrix multiplication between two matrixes and the result is saved in another matrix
  * This multiplication is implemented making the product with Mb trasposed
@@ -203,7 +242,7 @@ void MM1c(int size, double *Ma, double *Mb, double *Mr)
  */
 void MM1f(int size, double *Ma, double *Mb, double *Mr)
 {
-	int i, j,k;
+	int i, j, k;
 	for (i = 0; i < size; ++i)
 	{
 		for (j = 0; j < size; ++j)
@@ -222,14 +261,13 @@ void MM1f(int size, double *Ma, double *Mb, double *Mr)
 	}
 }
 
-
 /****************** Functions for posix (program using threads)**************************/
 
 /**
  * @brief Function that makes a memory reservation for a matrix
- * 
- * @param size that is the matrix size that is needed to reserved  
- * @return double** 
+ *
+ * @param size that is the matrix size that is needed to reserved
+ * @return double**
  */
 double **memReserve(int size)
 {
@@ -278,16 +316,17 @@ void initMatrix_DoublePointers(double **MA, double **MB, double **MC, int size)
  */
 void printMatrix_DoublePointers(double **M, int size)
 {
-	if(size<5){
+	if (size < 5)
+	{
 		int i, j; /*Indices*/
 		for (i = 0; i < size; ++i)
-	{
-		for (j = 0; j < size; ++j)
 		{
-			printf("%f ", M[i][j]);
+			for (j = 0; j < size; ++j)
+			{
+				printf("%f ", M[i][j]);
+			}
+			printf("\n");
 		}
-		printf("\n");
-	}
-	printf("-----------------------------\n");
+		printf("-----------------------------\n");
 	}
 }
