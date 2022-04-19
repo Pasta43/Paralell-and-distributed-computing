@@ -1,5 +1,6 @@
 import gravedad
 import gravedadCy
+from gravedadCy import step_time
 import time
 #Initialized planet for python
 
@@ -29,7 +30,7 @@ earth.vy=29.87e3
 earth.vz=0.034e3
 earth.m=5.9736e24
 initTimeCy=time.time()
-gravedadCy.step_time(planet=earth,time_span=time_span,n_steps=n_steps)
+step_time(planet=earth,time_span=time_span,n_steps=n_steps)
 endTimeCy=time.time()
 totalTimeCy = endTimeCy-initTimeCy
 print("Tiempo en cython",totalTimeCy,"s")

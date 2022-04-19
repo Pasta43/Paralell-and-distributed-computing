@@ -1,6 +1,13 @@
-from math import sqrt
+#cython: language_level=3
+cimport cython
 
-class Planet(object):
+#It is created squared root function
+cdef extern from "math.h":
+	double sqrt(double x) nogil
+
+cdef class Planet(object):
+	#It is declared class variables of double type
+	cdef public double x,y,z,vx,vy,vz,m
 	def __init__(self):
 	# Alguna posición 
 		self.x = 1.0
@@ -12,10 +19,12 @@ class Planet(object):
 	# Masa
 		self.m = 1.0
 
-def single_step(planet, dt):
+@cython.cdivision(True)
+cdef single_step(Planet planet, double dt):
 	""" Se hace un paso  en el tiempo """
 
 	#Calculo de la fuerza: gravedad sobre el origen
+	cdef float x,y,z,Fx,Fy,Fz,distancia
 	distancia = sqrt(planet.x**2+planet.y**2+planet.z**2)
 	Fx = -planet.x/distancia**3
 	Fy = -planet.y/distancia**3
@@ -31,10 +40,12 @@ def single_step(planet, dt):
 	planet.vy += dt*Fy/planet.m
 	planet.vz += dt*Fz/planet.m
 			
-def step_time(planet, time_span, n_steps):
+cdef step_time(Planet planet, float time_span,int n_steps):
+	cdef double dt
+	cdef int j
 	dt = time_span/n_steps
-
-	for j in range(n_steps):
-		single_step(planet, dt)		
+	with nogil:
+		for j in range(n_steps):
+			single_step(planet, dt)		
 
 
